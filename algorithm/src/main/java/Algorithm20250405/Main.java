@@ -1,9 +1,6 @@
 package Algorithm20250405;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -22,14 +19,40 @@ public class Main {
         if (digits.length() == 0) {
             return new ArrayList<>();
         }
+        List<String[]> combinations = new ArrayList<>();
         for (int i = 0; i < digits.length(); i++) {
             Character a = digits.charAt(0);
             String[] strings = result.get(a.toString());
+            combinations.add(strings);
+        }
 
-            for (String string : strings) {
+        List<String> results = new ArrayList<>();
+        if (combinations.isEmpty()) {
+            return new ArrayList<>();
+        }
 
-            }
+        String[] combination = combinations.get(0);
+
+        for (String s : combination) {
+            results.addAll(getCombo(s, combinations.subList(1, combinations.size())));
+        }
+
+        return new ArrayList<>();
+    }
+
+    private List<String> getCombo(String s, List<String[]> strings) {
+        if (strings.isEmpty()) {
+            return new ArrayList<>();
         }
         return new ArrayList<>();
+    }
+
+    public static void main(String[] args) {
+        List<String> a = new ArrayList<>();
+
+        a.add("test");
+        a.add("test2");
+
+        System.out.println(a.subList(1, 2));
     }
 }
