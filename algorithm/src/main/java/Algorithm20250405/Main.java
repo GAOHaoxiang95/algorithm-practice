@@ -21,7 +21,7 @@ public class Main {
         }
         List<String[]> combinations = new ArrayList<>();
         for (int i = 0; i < digits.length(); i++) {
-            Character a = digits.charAt(0);
+            Character a = digits.charAt(i);
             String[] strings = result.get(a.toString());
             combinations.add(strings);
         }
@@ -32,27 +32,36 @@ public class Main {
         }
 
         String[] combination = combinations.get(0);
-
         for (String s : combination) {
             results.addAll(getCombo(s, combinations.subList(1, combinations.size())));
         }
-
-        return new ArrayList<>();
+        return results;
     }
 
     private List<String> getCombo(String s, List<String[]> strings) {
         if (strings.isEmpty()) {
-            return new ArrayList<>();
+            List<String> r = new ArrayList<>();
+            r.add(s);
+            return r;
         }
-        return new ArrayList<>();
+        if (strings.size() == 1) {
+            String[] strings1 = strings.get(0);
+            List<String> a = new ArrayList<>();
+            for (String s1 : strings1) {
+                a.add(s + s1);
+            }
+            return a;
+        }
+        List<String> results = new ArrayList<>();
+        String[] combination = strings.get(0);
+        for (String ss : combination) {
+            results.addAll(getCombo(s + ss, strings.subList(1, strings.size())));
+        }
+        return results;
     }
 
     public static void main(String[] args) {
-        List<String> a = new ArrayList<>();
-
-        a.add("test");
-        a.add("test2");
-
-        System.out.println(a.subList(1, 2));
+        Main main = new Main();
+        System.out.println(main.letterCombinations("234"));
     }
 }
