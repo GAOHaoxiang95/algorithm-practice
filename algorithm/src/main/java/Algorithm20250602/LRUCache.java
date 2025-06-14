@@ -1,43 +1,44 @@
 package Algorithm20250602;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class LRUCache {
 
     private int capacity;
     private Map<Integer, Integer> map;
     private List<Integer> list;
-    private int size;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
         this.map = new HashMap<>();
         this.list = new LinkedList<>();
-        this.size = 0;
     }
 
     public int get(int key) {
-
-        if (map.containsKey(key)) {
-            list.remove(key);
-            list.addFirst(key);
-            return map.get(key);
+        Integer keyobject = Integer.valueOf(key);
+        if (map.containsKey(keyobject)) {
+            list.remove(keyobject);
+            list.addFirst(keyobject);
+            return map.get(keyobject);
         }
         return -1;
     }
 
     public void put(int key, int value) {
-        if (map.containsKey(key)) {
-            list.remove(key);
-            list.addFirst(key);
-            map.put(key, value);
+        Integer keyobject = Integer.valueOf(key);
+        if (map.containsKey(keyobject)) {
+            list.remove(keyobject);
+            list.addFirst(keyobject);
+            map.put(keyobject, value);
         } else {
-            if (size == capacity) {
-                int oldKey = list.removeLast();
+            if (list.size() >= capacity) {
+                Integer oldKey = list.removeLast();
+                list.addFirst(keyobject);
                 map.remove(oldKey);
+                map.put(keyobject, value);
+            } else {
+                list.addFirst(keyobject);
+                map.put(keyobject, value);
             }
         }
     }
@@ -45,6 +46,12 @@ class LRUCache {
     public static void main(String[] args) {
         LRUCache a = new LRUCache(6);
 
+        List<Integer> list = new ArrayList<>();
+
+        list.addFirst(9);
+        list.addFirst(8);
+
+        list.remove(Integer.valueOf(9));
     }
 }
 
